@@ -28,7 +28,7 @@ namespace MusicStore.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("Joe@contoso.com", Options.SendGridUser),
+                From = new EmailAddress("", Options.SendGridUser),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message

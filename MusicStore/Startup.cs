@@ -1,18 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MusicStore.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using MusicStore.Data;
 using MusicStore.Services;
 
 namespace MusicStore
@@ -32,17 +27,21 @@ namespace MusicStore
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+          .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // requires
             // using Microsoft.AspNetCore.Identity.UI.Services;
             // using MusicStore.Services;
-          //  services.AddTransient<IEmailSender, EmailSender>();
-          //  services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
-            services.AddControllersWithViews();
-            services.AddRazorPages();
+            // using Microsoft.AspNetCore.Identity.UI.Services;
+           // services.AddSingleton<IEmailSender, EmailSender>();
+
+          // services.AddControllersWithViews();
+           services.AddRazorPages();
 
 
         }

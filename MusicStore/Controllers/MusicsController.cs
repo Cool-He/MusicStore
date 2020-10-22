@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using MusicStore.Models;
 
 namespace MusicStore.Controllers
 {
+    [Authorize]
     public class MusicsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,8 +24,10 @@ namespace MusicStore.Controllers
         // GET: Musics
         public async Task<IActionResult> Index()
         {
+
             var applicationDbContext = _context.Musics.Include(m => m.Context).Include(m => m.Owner);
             return View(await applicationDbContext.ToListAsync());
+
         }
 
         // GET: Musics/Details/5
