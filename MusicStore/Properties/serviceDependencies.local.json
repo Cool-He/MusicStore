@@ -1,3 +1,19 @@
 {
-  "dependencies": {}
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/hssql2020/databases/aspnet-MusicStore-6E59E1D4-809A-44D9-A3DE-F8290D03A3E1",
+      "type": "mssql.azure",
+      "connectionId": "MyDbConnection",
+      "secretStore": "LocalSecretsFile"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "DefaultConnection",
+      "suggestion": "true",
+      "ignored": "true"
+    }
+  }
 }
