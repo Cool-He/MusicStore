@@ -26,7 +26,8 @@ namespace MusicStore
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            //        Configuration.GetConnectionString("DefaultConnection")));
+                      Configuration.GetConnectionString("MyDbConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
           .AddEntityFrameworkStores<ApplicationDbContext>();
