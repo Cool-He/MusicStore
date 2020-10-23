@@ -12,7 +12,7 @@
       "suggestion": "true",
       "ignored": "true"
     },
-    "secrets1": {
+    "secrets2": {
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/MusicStorevault",
       "type": "secrets.keyVault",
       "connectionId": "VaultUri",
