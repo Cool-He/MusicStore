@@ -27,6 +27,7 @@ namespace MusicStore.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public byte[] Photo { get; set; }
         public IEnumerable<Music> Musics { get; set; }
     }
 }

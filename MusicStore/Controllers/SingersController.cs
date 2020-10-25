@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MusicStore.Data;
 using MusicStore.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MusicStore.Controllers
 {
-    [Authorize]
     public class SingersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,6 +25,7 @@ namespace MusicStore.Controllers
         // GET: Singers
         public async Task<IActionResult> Index()
         {
+
             return View(await _context.Singers.ToListAsync());
         }
 
@@ -56,8 +58,14 @@ namespace MusicStore.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Singer singer)
+        public async Task<IActionResult> Create([Bind("Id,Name,Photo")] Singer singer)
         {
+            foreach(var file in Request.Form.Files)
+            {
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+                singer.Photo = ms.ToArray();
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(singer);
@@ -88,7 +96,7 @@ namespace MusicStore.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Singer singer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Photo")] Singer singer)
         {
             if (id != singer.Id)
             {

@@ -4,13 +4,16 @@
     ViewData["Title"] = "Create";
 }
 
+
+
+
 <h1>Create</h1>
 
 <h4>Singer</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+    <div class="col-md-6">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -18,9 +21,24 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="Photo" class="control-label"></label>
+                <div class="input-group">
+                    <input  type="file" accept="image/*" class="custom-file-input" name="photofile" id="photofile" multiple="multiple">
+                    <label class="custom-file-label" for="photofile">Choose photo</label>
+                </div>
+                <div>
+                    <fieldset>
+                        <img  id="imgpreview" src="..." alt="Singer Photo"  style="width:200px; height:160px;" />
+                    </fieldset>
+                </div>
+
+
             </div>
-        </form>
+            
+            <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+</form>
     </div>
 </div>
 
@@ -28,6 +46,24 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#photofile").on("change", function () {
+            var file = this.files[0];
+            if (this.files && file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#imgpreview").attr("src", e.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        })
+    })
+</script>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
