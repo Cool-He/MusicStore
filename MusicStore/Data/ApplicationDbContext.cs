@@ -18,6 +18,8 @@ namespace MusicStore.Data
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Singer> Singers { get; set; }
 
+        public DbSet<FromCity> FromCities { get; set; }
+
 
     }
 }

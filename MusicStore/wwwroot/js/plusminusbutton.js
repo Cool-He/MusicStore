@@ -1,12 +1,11 @@
-﻿$('.btn-number').click(function (e) {
-    e.preventDefault();
-
+﻿$('.btn-number').click(function () {
     fieldName = $(this).attr('data-field');
-    type = $(this).attr('data-type');
+    buttonType = $(this).attr('data-type');
+
     var input = $("input[name='" + fieldName + "']");
     var currentVal = parseInt(input.val());
     if (!isNaN(currentVal)) {
-        if (type == 'minus') {
+        if (buttonType == 'minus') {
 
             if (currentVal > input.attr('min')) {
                 input.val(currentVal - 1).change();
@@ -15,7 +14,7 @@
                 $(this).attr('disabled', true);
             }
 
-        } else if (type == 'plus') {
+        } else if (buttonType == 'plus') {
 
             if (currentVal < input.attr('max')) {
                 input.val(currentVal + 1).change();
@@ -28,6 +27,15 @@
     } else {
         input.val(0);
     }
+
+    var adultNumber = parseInt($("#number1").val());
+    var childrenNumber = parseInt($("#number2").val());
+    var infantNumber = parseInt($("#number3").val());
+
+    var totalNumber = adultNumber + childrenNumber + infantNumber;
+
+    $("#pNumbers").text(totalNumber.toString());
+
 });
 $('.input-number').focusin(function () {
     $(this).data('oldValue', $(this).val());
